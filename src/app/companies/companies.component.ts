@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CrmService } from '../services/crm.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-companies',
+  imports: [CommonModule],
   templateUrl: './companies.component.html',
   styleUrls: ['./companies.component.css']
 })

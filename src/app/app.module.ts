@@ -12,17 +12,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DashboardComponent,
-    CustomersComponent,
-    LeadsComponent,
-    CompaniesComponent
+    AppComponent
+ 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+       DashboardComponent,
+    CustomersComponent,
+    LeadsComponent,
+    CompaniesComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

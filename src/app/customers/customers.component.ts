@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CrmService } from '../services/crm.service';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-customers',
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css']
 })
