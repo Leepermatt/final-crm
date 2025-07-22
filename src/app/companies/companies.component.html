@@ -1,10 +1,25 @@
 <h2>Companies</h2>
 
+<input
+  type="text"
+  placeholder="Search companies..."
+  #searchBox
+  (input)="searchCompanies(searchBox.value)"
+/>
+
+<hr />
+
 <ul>
-  <li *ngFor="let company of companies">
+  <li *ngFor="let company of paginatedCompanies">
     <strong>{{ company.name }}</strong> - {{ company.industry }} ({{
       company.size
     }}
     employees)
   </li>
 </ul>
+
+<div>
+  <button (click)="prevPage()">Previous</button>
+  Page {{ currentPage }}
+  <button (click)="nextPage()">Next</button>
+</div>

@@ -1,5 +1,12 @@
 <h2>Customers</h2>
 
+<input
+  type="text"
+  placeholder="Search by name..."
+  #searchBox
+  (input)="searchCustomers(searchBox.value)"
+/>
+
 <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
   <input formControlName="name" placeholder="Name" required />
   <input formControlName="email" placeholder="Email" type="email" required />
@@ -16,10 +23,16 @@
 <hr />
 
 <ul>
-  <li *ngFor="let customer of customers">
+  <li *ngFor="let customer of paginatedCustomers">
     <strong>{{ customer.name }}</strong> - {{ customer.email }} -
     {{ customer.company }}
     <button (click)="editCustomer(customer)">Edit</button>
     <button (click)="deleteCustomer(customer._id)">Delete</button>
   </li>
 </ul>
+
+<div>
+  <button (click)="prevPage()">Previous</button>
+  Page {{ currentPage }}
+  <button (click)="nextPage()">Next</button>
+</div>

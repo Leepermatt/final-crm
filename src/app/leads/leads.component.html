@@ -1,14 +1,19 @@
 <h2>Leads</h2>
 
+<input
+  type="text"
+  placeholder="Search by name..."
+  #searchLeadBox
+  (input)="searchLeads(searchLeadBox.value)"
+/>
+
 <form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
   <input formControlName="name" placeholder="Name" required />
-
   <select formControlName="status" required>
     <option value="New">New</option>
     <option value="Contacted">Contacted</option>
     <option value="Converted">Converted</option>
   </select>
-
   <input formControlName="contactDate" type="date" required />
 
   <button type="submit">{{ isEditMode ? "Update" : "Add" }} Lead</button>
@@ -20,10 +25,16 @@
 <hr />
 
 <ul>
-  <li *ngFor="let lead of leads">
+  <li *ngFor="let lead of paginatedLeads">
     <strong>{{ lead.name }}</strong> - {{ lead.status }} -
     {{ lead.contactDate }}
     <button (click)="editLead(lead)">Edit</button>
     <button (click)="deleteLead(lead._id)">Delete</button>
   </li>
 </ul>
+
+<div>
+  <button (click)="prevPage()">Previous</button>
+  Page {{ currentPage }}
+  <button (click)="nextPage()">Next</button>
+</div>

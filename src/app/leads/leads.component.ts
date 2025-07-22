@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CrmService } from '../services/crm.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { CrmService } from '../services/crm.service';
 
 @Component({
   selector: 'app-leads',
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './leads.component.html',
   styleUrls: ['./leads.component.css']
 })
 export class LeadsComponent implements OnInit {
   leads: any[] = [];
+  filteredLeads: any[] = [];
   leadForm!: FormGroup;
   isEditMode = false;
   editLeadId: string | null = null;
+
+  currentPage = 1;
+  itemsPerPage = 5;
 
   constructor(private fb: FormBuilder, private crmService: CrmService) {}
 
@@ -33,10 +37,36 @@ export class LeadsComponent implements OnInit {
   }
 
   loadLeads() {
-    this.crmService.getLeads().subscribe({
-      next: (data) => (this.leads = data),
-      error: (err) => console.error('Error loading leads:', err)
+    this.crmService.getLeads().subscribe(data => {
+      this.leads = data;
+      this.filteredLeads = data;
     });
+  }
+
+  searchLeads(term: string) {
+    term = term.toLowerCase();
+    this.filteredLeads = this.leads.filter(l =>
+      l.name.toLowerCase().includes(term)
+    );
+    this.currentPage = 1;
+  }
+
+  get paginatedLeads() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filteredLeads.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.currentPage * this.itemsPerPage < this.filteredLeads.length) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
 
   onSubmit() {
