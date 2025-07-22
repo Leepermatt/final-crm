@@ -1,1 +1,25 @@
-<p>customers works!</p>
+<h2>Customers</h2>
+
+<form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+  <input formControlName="name" placeholder="Name" required />
+  <input formControlName="email" placeholder="Email" type="email" required />
+  <input formControlName="phone" placeholder="Phone" />
+  <input formControlName="company" placeholder="Company" />
+  <input formControlName="notes" placeholder="Notes" />
+
+  <button type="submit">{{ isEditMode ? "Update" : "Add" }} Customer</button>
+  <button type="button" (click)="cancelEdit()" *ngIf="isEditMode">
+    Cancel
+  </button>
+</form>
+
+<hr />
+
+<ul>
+  <li *ngFor="let customer of customers">
+    <strong>{{ customer.name }}</strong> - {{ customer.email }} -
+    {{ customer.company }}
+    <button (click)="editCustomer(customer)">Edit</button>
+    <button (click)="deleteCustomer(customer._id)">Delete</button>
+  </li>
+</ul>

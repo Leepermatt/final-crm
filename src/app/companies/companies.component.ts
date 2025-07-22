@@ -1,11 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CrmService } from '../services/crm.service';
 
 @Component({
   selector: 'app-companies',
-  standalone: false,
   templateUrl: './companies.component.html',
-  styleUrl: './companies.component.css'
+  styleUrls: ['./companies.component.css']
 })
-export class CompaniesComponent {
+export class CompaniesComponent implements OnInit {
+  companies: any[] = [];
 
+  constructor(private crmService: CrmService) {}
+
+  ngOnInit(): void {
+    this.loadCompanies();
+  }
+
+  loadCompanies() {
+    this.crmService.getCompanies().subscribe({
+      next: (data) => (this.companies = data),
+      error: (err) => console.error('Error loading companies:', err)
+    });
+  }
 }

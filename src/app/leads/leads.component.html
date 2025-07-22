@@ -1,1 +1,29 @@
-<p>leads works!</p>
+<h2>Leads</h2>
+
+<form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
+  <input formControlName="name" placeholder="Name" required />
+
+  <select formControlName="status" required>
+    <option value="New">New</option>
+    <option value="Contacted">Contacted</option>
+    <option value="Converted">Converted</option>
+  </select>
+
+  <input formControlName="contactDate" type="date" required />
+
+  <button type="submit">{{ isEditMode ? "Update" : "Add" }} Lead</button>
+  <button type="button" (click)="cancelEdit()" *ngIf="isEditMode">
+    Cancel
+  </button>
+</form>
+
+<hr />
+
+<ul>
+  <li *ngFor="let lead of leads">
+    <strong>{{ lead.name }}</strong> - {{ lead.status }} -
+    {{ lead.contactDate }}
+    <button (click)="editLead(lead)">Edit</button>
+    <button (click)="deleteLead(lead._id)">Delete</button>
+  </li>
+</ul>

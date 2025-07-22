@@ -52,6 +52,18 @@ app.post('/customers', async (req, res) => {
   res.json(customer);
 });
 
+// Update Customer
+app.put('/customers/:id', async (req, res) => {
+  const updatedCustomer = await Customer.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.json(updatedCustomer);
+});
+
+// Delete Customer
+app.delete('/customers/:id', async (req, res) => {
+  await Customer.findByIdAndDelete(req.params.id);
+  res.json({ message: 'Customer deleted' });
+});
+
 app.get('/leads', async (req, res) => {
   const leads = await Lead.find();
   res.json(leads);
@@ -62,6 +74,18 @@ app.post('/leads', async (req, res) => {
   await lead.save();
   res.json(lead);
 });
+// Update Lead
+app.put('/leads/:id', async (req, res) => {
+  const updatedLead = await Lead.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.json(updatedLead);
+});
+
+// Delete Lead
+app.delete('/leads/:id', async (req, res) => {
+  await Lead.findByIdAndDelete(req.params.id);
+  res.json({ message: 'Lead deleted' });
+});
+
 
 app.get('/companies', async (req, res) => {
   const companies = await Company.find();
