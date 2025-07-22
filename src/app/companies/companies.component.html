@@ -1,25 +1,30 @@
-<h2>Companies</h2>
+<div class="container mt-4">
+  <h2 class="mb-3">Companies</h2>
 
-<input
-  type="text"
-  placeholder="Search companies..."
-  #searchBox
-  (input)="searchCompanies(searchBox.value)"
-/>
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search companies..."
+      #searchBox
+      (input)="searchCompanies(searchBox.value)"
+    />
+  </div>
 
-<hr />
+  <ul class="list-group mb-3">
+    <li *ngFor="let company of paginatedCompanies" class="list-group-item">
+      <strong>{{ company.name }}</strong> - {{ company.industry }} ({{
+        company.size
+      }}
+      employees)
+    </li>
+  </ul>
 
-<ul>
-  <li *ngFor="let company of paginatedCompanies">
-    <strong>{{ company.name }}</strong> - {{ company.industry }} ({{
-      company.size
-    }}
-    employees)
-  </li>
-</ul>
-
-<div>
-  <button (click)="prevPage()">Previous</button>
-  Page {{ currentPage }}
-  <button (click)="nextPage()">Next</button>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-outline-secondary" (click)="prevPage()">
+      Previous
+    </button>
+    <span>Page {{ currentPage }}</span>
+    <button class="btn btn-outline-secondary" (click)="nextPage()">Next</button>
+  </div>
 </div>

@@ -1,38 +1,109 @@
-<h2>Customers</h2>
+<div class="container mt-4">
+  <h2 class="mb-3">Customers</h2>
 
-<input
-  type="text"
-  placeholder="Search by name..."
-  #searchBox
-  (input)="searchCustomers(searchBox.value)"
-/>
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search by name..."
+      #searchBox
+      (input)="searchCustomers(searchBox.value)"
+    />
+  </div>
 
-<form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
-  <input formControlName="name" placeholder="Name" required />
-  <input formControlName="email" placeholder="Email" type="email" required />
-  <input formControlName="phone" placeholder="Phone" />
-  <input formControlName="company" placeholder="Company" />
-  <input formControlName="notes" placeholder="Notes" />
+  <form
+    [formGroup]="customerForm"
+    (ngSubmit)="onSubmit()"
+    class="card p-3 mb-4 shadow-sm"
+  >
+    <div class="row g-2 mb-3">
+      <div class="col-md">
+        <input
+          formControlName="name"
+          class="form-control"
+          placeholder="Name"
+          required
+        />
+      </div>
+      <div class="col-md">
+        <input
+          formControlName="email"
+          class="form-control"
+          placeholder="Email"
+          type="email"
+          required
+        />
+      </div>
+      <div class="col-md">
+        <input
+          formControlName="phone"
+          class="form-control"
+          placeholder="Phone"
+        />
+      </div>
+    </div>
+    <div class="row g-2 mb-3">
+      <div class="col-md">
+        <input
+          formControlName="company"
+          class="form-control"
+          placeholder="Company"
+        />
+      </div>
+      <div class="col-md">
+        <input
+          formControlName="notes"
+          class="form-control"
+          placeholder="Notes"
+        />
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-primary" type="submit">
+        {{ isEditMode ? "Update" : "Add" }} Customer
+      </button>
+      <button
+        class="btn btn-secondary ms-2"
+        type="button"
+        (click)="cancelEdit()"
+        *ngIf="isEditMode"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
 
-  <button type="submit">{{ isEditMode ? "Update" : "Add" }} Customer</button>
-  <button type="button" (click)="cancelEdit()" *ngIf="isEditMode">
-    Cancel
-  </button>
-</form>
+  <ul class="list-group mb-3">
+    <li
+      *ngFor="let customer of paginatedCustomers"
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      <span>
+        <strong>{{ customer.name }}</strong> - {{ customer.email }} -
+        {{ customer.company }}
+      </span>
+      <span>
+        <button
+          class="btn btn-sm btn-outline-primary me-2"
+          (click)="editCustomer(customer)"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="deleteCustomer(customer._id)"
+        >
+          Delete
+        </button>
+      </span>
+    </li>
+  </ul>
 
-<hr />
-
-<ul>
-  <li *ngFor="let customer of paginatedCustomers">
-    <strong>{{ customer.name }}</strong> - {{ customer.email }} -
-    {{ customer.company }}
-    <button (click)="editCustomer(customer)">Edit</button>
-    <button (click)="deleteCustomer(customer._id)">Delete</button>
-  </li>
-</ul>
-
-<div>
-  <button (click)="prevPage()">Previous</button>
-  Page {{ currentPage }}
-  <button (click)="nextPage()">Next</button>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-outline-secondary" (click)="prevPage()">
+      Previous
+    </button>
+    <span>Page {{ currentPage }}</span>
+    <button class="btn btn-outline-secondary" (click)="nextPage()">Next</button>
+  </div>
 </div>

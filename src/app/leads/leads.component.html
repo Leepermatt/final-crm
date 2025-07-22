@@ -1,40 +1,92 @@
-<h2>Leads</h2>
+<div class="container mt-4">
+  <h2 class="mb-3">Leads</h2>
 
-<input
-  type="text"
-  placeholder="Search by name..."
-  #searchLeadBox
-  (input)="searchLeads(searchLeadBox.value)"
-/>
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search by name..."
+      #searchLeadBox
+      (input)="searchLeads(searchLeadBox.value)"
+    />
+  </div>
 
-<form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
-  <input formControlName="name" placeholder="Name" required />
-  <select formControlName="status" required>
-    <option value="New">New</option>
-    <option value="Contacted">Contacted</option>
-    <option value="Converted">Converted</option>
-  </select>
-  <input formControlName="contactDate" type="date" required />
+  <form
+    [formGroup]="leadForm"
+    (ngSubmit)="onSubmit()"
+    class="card p-3 mb-4 shadow-sm"
+  >
+    <div class="row g-2 mb-3">
+      <div class="col-md">
+        <input
+          formControlName="name"
+          class="form-control"
+          placeholder="Name"
+          required
+        />
+      </div>
+      <div class="col-md">
+        <select formControlName="status" class="form-select" required>
+          <option value="New">New</option>
+          <option value="Contacted">Contacted</option>
+          <option value="Converted">Converted</option>
+        </select>
+      </div>
+      <div class="col-md">
+        <input
+          formControlName="contactDate"
+          type="date"
+          class="form-control"
+          required
+        />
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-primary" type="submit">
+        {{ isEditMode ? "Update" : "Add" }} Lead
+      </button>
+      <button
+        class="btn btn-secondary ms-2"
+        type="button"
+        (click)="cancelEdit()"
+        *ngIf="isEditMode"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
 
-  <button type="submit">{{ isEditMode ? "Update" : "Add" }} Lead</button>
-  <button type="button" (click)="cancelEdit()" *ngIf="isEditMode">
-    Cancel
-  </button>
-</form>
+  <ul class="list-group mb-3">
+    <li
+      *ngFor="let lead of paginatedLeads"
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      <span>
+        <strong>{{ lead.name }}</strong> - {{ lead.status }} -
+        {{ lead.contactDate }}
+      </span>
+      <span>
+        <button
+          class="btn btn-sm btn-outline-primary me-2"
+          (click)="editLead(lead)"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="deleteLead(lead._id)"
+        >
+          Delete
+        </button>
+      </span>
+    </li>
+  </ul>
 
-<hr />
-
-<ul>
-  <li *ngFor="let lead of paginatedLeads">
-    <strong>{{ lead.name }}</strong> - {{ lead.status }} -
-    {{ lead.contactDate }}
-    <button (click)="editLead(lead)">Edit</button>
-    <button (click)="deleteLead(lead._id)">Delete</button>
-  </li>
-</ul>
-
-<div>
-  <button (click)="prevPage()">Previous</button>
-  Page {{ currentPage }}
-  <button (click)="nextPage()">Next</button>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-outline-secondary" (click)="prevPage()">
+      Previous
+    </button>
+    <span>Page {{ currentPage }}</span>
+    <button class="btn btn-outline-secondary" (click)="nextPage()">Next</button>
+  </div>
 </div>

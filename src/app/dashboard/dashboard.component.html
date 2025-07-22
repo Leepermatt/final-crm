@@ -1,36 +1,41 @@
-<h2>CRM Dashboard</h2>
-<div style="display: flex; gap: 20px">
-  <div
-    style="
-      border: 1px solid #ccc;
-      padding: 15px;
-      width: 150px;
-      text-align: center;
-    "
-  >
-    <h3>Customers</h3>
-    <p>{{ customersCount }}</p>
-  </div>
-  <div
-    style="
-      border: 1px solid #ccc;
-      padding: 15px;
-      width: 150px;
-      text-align: center;
-    "
-  >
-    <h3>Leads</h3>
-    <p>{{ leadsCount }}</p>
-  </div>
-  <div
-    style="
-      border: 1px solid #ccc;
-      padding: 15px;
-      width: 150px;
-      text-align: center;
-    "
-  >
-    <h3>Companies</h3>
-    <p>{{ companiesCount }}</p>
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">CRM Dashboard</h2>
+
+  <div class="row text-center">
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Customers</h5>
+          <p class="display-5 text-primary">{{ customersCount }}</p>
+          <a routerLink="/customers" class="btn btn-outline-primary btn-sm"
+            >View Customers</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Leads</h5>
+          <p class="display-5 text-success">{{ leadsCount }}</p>
+          <a routerLink="/leads" class="btn btn-outline-success btn-sm"
+            >View Leads</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Companies</h5>
+          <p class="display-5 text-info">{{ companiesCount }}</p>
+          <a routerLink="/companies" class="btn btn-outline-info btn-sm"
+            >View Companies</a
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </div>
