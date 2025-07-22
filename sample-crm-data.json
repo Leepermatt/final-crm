@@ -1,0 +1,14 @@
+{
+  "customers": [
+    { "id": 1, "name": "John Smith", "email": "john@abc.com", "phone": "555-1234", "company": "ABC Corp", "notes": "Interested in premium plan" },
+    { "id": 2, "name": "Sarah Johnson", "email": "sarah@xyz.com", "phone": "555-5678", "company": "XYZ Ltd", "notes": "Follow-up next week" }
+  ],
+  "leads": [
+    { "id": 1, "name": "Mike Ross", "status": "New", "contactDate": "2025-07-18" },
+    { "id": 2, "name": "Emma Davis", "status": "Contacted", "contactDate": "2025-07-15" }
+  ],
+  "companies": [
+    { "id": 1, "name": "ABC Corp", "industry": "Software", "size": 120 },
+    { "id": 2, "name": "XYZ Ltd", "industry": "Finance", "size": 80 }
+  ]
+}
